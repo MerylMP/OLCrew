@@ -1,14 +1,321 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android = "http://schemas.android.com/apk/res/android"
+    xmlns:app = "http://schemas.android.com/apk/res-auto"
     xmlns:tools = "http://schemas.android.com/tools"
     android:layout_width = "match_parent"
     android:layout_height = "match_parent"
     tools:context = ".fragments.DetailOLFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <FrameLayout
+        android:id = "@+id/container_detailView"
         android:layout_width = "match_parent"
-        android:layout_height = "match_parent"
-        android:text = "@string/hello_blank_fragment" />
+        android:layout_height = "wrap_content"
+        tools:context = ".fragments.DetailOLFragment">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content">
+
+            <ImageView
+                android:id = "@+id/detailsView_image"
+                android:layout_width = "130dp"
+                android:layout_height = "130dp"
+                android:layout_marginTop = "48dp"
+                app:layout_constraintEnd_toEndOf = "parent"
+                app:layout_constraintStart_toStartOf = "parent"
+                app:layout_constraintTop_toTopOf = "parent"
+                tools:src = "@tools:sample/avatars[2]" />
+
+            <TextView
+                android:id = "@+id/detailsView_firstName"
+                android:layout_width = "0dp"
+                android:layout_height = "wrap_content"
+                android:layout_marginTop = "16dp"
+                android:textAlignment = "center"
+                android:textStyle = "bold"
+                app:layout_constraintEnd_toEndOf = "parent"
+                app:layout_constraintStart_toStartOf = "parent"
+                app:layout_constraintTop_toBottomOf = "@id/detailsView_image"
+                tools:text = "Name" />
+
+            <TextView
+                android:id = "@+id/detailsView_lastName"
+                android:layout_width = "0dp"
+                android:layout_height = "wrap_content"
+                android:textAlignment = "center"
+                android:textStyle = "bold"
+                app:layout_constraintEnd_toEndOf = "parent"
+                app:layout_constraintStart_toStartOf = "parent"
+                app:layout_constraintTop_toBottomOf = "@id/detailsView_firstName"
+                tools:text = "Surname" />
+
+            <TextView
+                android:id = "@+id/detailsView_profession"
+                android:layout_width = "0dp"
+                android:layout_height = "wrap_content"
+                android:textAlignment = "center"
+                android:textAllCaps = "true"
+                android:textStyle = "normal"
+                app:layout_constraintEnd_toEndOf = "parent"
+                app:layout_constraintStart_toStartOf = "parent"
+                app:layout_constraintTop_toBottomOf = "@id/detailsView_lastName"
+                tools:text = "Profession" />
+
+            <TextView
+                android:id = "@+id/detailsView_email"
+                android:layout_width = "0dp"
+                android:layout_height = "wrap_content"
+                android:textAlignment = "center"
+                android:textAllCaps = "false"
+                android:textStyle = "normal"
+                app:layout_constraintEnd_toEndOf = "parent"
+                app:layout_constraintStart_toStartOf = "parent"
+                app:layout_constraintTop_toBottomOf = "@id/detailsView_profession"
+                tools:text = "name.surname@willywonkafactory.com" />
+
+            <View
+                android:id = "@+id/detailsView_divider"
+                android:layout_width = "match_parent"
+                android:layout_height = "1dp"
+                android:layout_marginTop = "16dp"
+                android:background = "?android:attr/listDivider"
+                app:layout_constraintTop_toBottomOf = "@id/detailsView_email" />
+
+            <TextView
+                android:id = "@+id/detailsView_personalDataTitle"
+                android:layout_width = "0dp"
+                android:layout_height = "wrap_content"
+                android:layout_marginStart = "16dp"
+                android:layout_marginTop = "24dp"
+                android:layout_marginEnd = "16dp"
+                android:text = "@string/title_otherPersonalData"
+                android:textAlignment = "textStart"
+                android:textStyle = "bold"
+                app:layout_constraintEnd_toEndOf = "parent"
+                app:layout_constraintStart_toStartOf = "parent"
+                app:layout_constraintTop_toBottomOf = "@id/detailsView_divider" />
+
+            <LinearLayout
+                android:id = "@+id/detailsView_personalDataContainer"
+                android:layout_width = "match_parent"
+                android:layout_height = "wrap_content"
+                android:layout_marginStart = "16dp"
+                android:layout_marginEnd = "16dp"
+                android:orientation = "horizontal"
+                app:layout_constraintEnd_toEndOf = "parent"
+                app:layout_constraintStart_toStartOf = "parent"
+                app:layout_constraintTop_toBottomOf = "@id/detailsView_personalDataTitle">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width = "match_parent"
+                    android:layout_height = "wrap_content"
+                    android:layout_weight = "1">
+
+                    <TextView
+                        android:id = "@+id/detailsView_genderLabel"
+                        android:layout_width = "wrap_content"
+                        android:layout_height = "wrap_content"
+                        android:layout_marginStart = "8dp"
+                        android:layout_marginTop = "8dp"
+                        android:text = "@string/gender"
+                        android:textAlignment = "textStart"
+                        android:textStyle = "bold"
+                        app:layout_constraintStart_toStartOf = "parent"
+                        app:layout_constraintTop_toTopOf = "parent" />
+
+                    <TextView
+                        android:id = "@+id/detailsView_gender"
+                        android:layout_width = "0dp"
+                        android:layout_height = "wrap_content"
+                        android:layout_marginStart = "8dp"
+                        android:layout_marginEnd = "8dp"
+                        android:textAlignment = "textStart"
+                        android:textStyle = "normal"
+                        app:layout_constraintEnd_toEndOf = "parent"
+                        app:layout_constraintStart_toEndOf = "@id/detailsView_genderLabel"
+                        app:layout_constraintTop_toTopOf = "@id/detailsView_genderLabel"
+                        tools:text = "gender" />
+
+                    <TextView
+                        android:id = "@+id/detailsView_countryLabel"
+                        android:layout_width = "wrap_content"
+                        android:layout_height = "wrap_content"
+                        android:layout_marginStart = "8dp"
+                        android:layout_marginBottom = "8dp"
+                        android:text = "@string/country"
+                        android:textAlignment = "textStart"
+                        android:textStyle = "bold"
+                        app:layout_constraintBottom_toBottomOf = "parent"
+                        app:layout_constraintStart_toStartOf = "parent"
+                        app:layout_constraintTop_toBottomOf = "@id/detailsView_genderLabel" />
+
+                    <TextView
+                        android:id = "@+id/detailsView_country"
+                        android:layout_width = "0dp"
+                        android:layout_height = "wrap_content"
+                        android:layout_marginStart = "8dp"
+                        android:layout_marginEnd = "8dp"
+                        android:textAlignment = "textStart"
+                        android:textStyle = "normal"
+                        app:layout_constraintEnd_toEndOf = "parent"
+                        app:layout_constraintStart_toEndOf = "@id/detailsView_countryLabel"
+                        app:layout_constraintTop_toTopOf = "@id/detailsView_countryLabel"
+                        tools:text = "country" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width = "match_parent"
+                    android:layout_height = "wrap_content"
+                    android:layout_weight = "1">
+
+                    <TextView
+                        android:id = "@+id/detailsView_ageLabel"
+                        android:layout_width = "wrap_content"
+                        android:layout_height = "wrap_content"
+                        android:layout_marginStart = "8dp"
+                        android:layout_marginTop = "8dp"
+                        android:text = "@string/age"
+                        android:textAlignment = "textStart"
+                        android:textStyle = "bold"
+                        app:layout_constraintStart_toStartOf = "parent"
+                        app:layout_constraintTop_toTopOf = "parent" />
+
+                    <TextView
+                        android:id = "@+id/detailsView_age"
+                        android:layout_width = "0dp"
+                        android:layout_height = "wrap_content"
+                        android:layout_marginStart = "8dp"
+                        android:layout_marginEnd = "8dp"
+                        android:textAlignment = "textStart"
+                        android:textStyle = "normal"
+                        app:layout_constraintEnd_toEndOf = "parent"
+                        app:layout_constraintStart_toEndOf = "@id/detailsView_ageLabel"
+                        app:layout_constraintTop_toTopOf = "@id/detailsView_ageLabel"
+                        tools:text = "age" />
+
+                    <TextView
+                        android:id = "@+id/detailsView_heightLabel"
+                        android:layout_width = "wrap_content"
+                        android:layout_height = "wrap_content"
+                        android:layout_marginStart = "8dp"
+                        android:layout_marginBottom = "8dp"
+                        android:text = "@string/height"
+                        android:textAlignment = "textStart"
+                        android:textStyle = "bold"
+                        app:layout_constraintBottom_toBottomOf = "parent"
+                        app:layout_constraintStart_toStartOf = "parent"
+                        app:layout_constraintTop_toBottomOf = "@id/detailsView_ageLabel" />
+
+                    <TextView
+                        android:id = "@+id/detailsView_height"
+                        android:layout_width = "0dp"
+                        android:layout_height = "wrap_content"
+                        android:layout_marginStart = "8dp"
+                        android:layout_marginEnd = "8dp"
+                        android:textAlignment = "textStart"
+                        android:textStyle = "normal"
+                        app:layout_constraintEnd_toEndOf = "parent"
+                        app:layout_constraintStart_toEndOf = "@id/detailsView_heightLabel"
+                        app:layout_constraintTop_toTopOf = "@id/detailsView_heightLabel"
+                        tools:text = "height" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id = "@+id/detailsView_FavouritesTitle"
+                android:layout_width = "0dp"
+                android:layout_height = "wrap_content"
+                android:layout_marginStart = "16dp"
+                android:layout_marginTop = "16dp"
+                android:layout_marginEnd = "16dp"
+                android:text = "@string/title_favorites"
+                android:textAlignment = "textStart"
+                android:textStyle = "bold"
+                app:layout_constraintEnd_toEndOf = "parent"
+                app:layout_constraintStart_toStartOf = "parent"
+                app:layout_constraintTop_toBottomOf = "@id/detailsView_personalDataContainer" />
+
+            <TextView
+                android:id = "@+id/detailsView_colorLabel"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:layout_marginStart = "8dp"
+                android:layout_marginTop = "8dp"
+                android:text = "@string/color"
+                android:textAlignment = "textStart"
+                android:textStyle = "bold"
+                app:layout_constraintStart_toStartOf = "@id/detailsView_FavouritesTitle"
+                app:layout_constraintTop_toBottomOf = "@id/detailsView_FavouritesTitle" />
+
+            <TextView
+                android:id = "@+id/detailsView_color"
+                android:layout_width = "0dp"
+                android:layout_height = "wrap_content"
+                android:layout_marginStart = "8dp"
+                android:layout_marginEnd = "16dp"
+                android:textAlignment = "textStart"
+                android:textStyle = "normal"
+                app:layout_constraintEnd_toEndOf = "parent"
+                app:layout_constraintStart_toEndOf = "@id/detailsView_colorLabel"
+                app:layout_constraintTop_toTopOf = "@id/detailsView_colorLabel"
+                tools:text = "gender" />
+
+            <TextView
+                android:id = "@+id/detailsView_foodLabel"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:layout_marginStart = "8dp"
+                android:text = "@string/food"
+                android:textAlignment = "textStart"
+                android:textStyle = "bold"
+                app:layout_constraintStart_toStartOf = "@id/detailsView_FavouritesTitle"
+                app:layout_constraintTop_toBottomOf = "@id/detailsView_colorLabel" />
+
+            <TextView
+                android:id = "@+id/detailsView_food"
+                android:layout_width = "0dp"
+                android:layout_height = "wrap_content"
+                android:layout_marginStart = "8dp"
+                android:layout_marginEnd = "16dp"
+                android:textAlignment = "textStart"
+                android:textStyle = "normal"
+                app:layout_constraintEnd_toEndOf = "parent"
+                app:layout_constraintStart_toEndOf = "@id/detailsView_foodLabel"
+                app:layout_constraintTop_toTopOf = "@id/detailsView_foodLabel"
+                tools:text = "food" />
+
+            <TextView
+                android:id = "@+id/detailsView_descriptionTitle"
+                android:layout_width = "0dp"
+                android:layout_height = "wrap_content"
+                android:layout_marginStart = "16dp"
+                android:layout_marginTop = "24dp"
+                android:layout_marginEnd = "16dp"
+                android:text = "@string/title_description"
+                android:textAlignment = "textStart"
+                android:textStyle = "bold"
+                app:layout_constraintEnd_toEndOf = "parent"
+                app:layout_constraintStart_toStartOf = "parent"
+                app:layout_constraintTop_toBottomOf = "@id/detailsView_foodLabel" />
+
+            <TextView
+                android:id = "@+id/detailsView_description"
+                android:layout_width = "0dp"
+                android:layout_height = "wrap_content"
+                android:layout_gravity = "center_vertical|end"
+                android:layout_marginStart = "16dp"
+                android:layout_marginTop = "8dp"
+                android:layout_marginEnd = "16dp"
+                android:gravity = "end"
+                android:textStyle = "normal"
+                app:layout_constraintBottom_toBottomOf = "parent"
+                app:layout_constraintEnd_toEndOf = "parent"
+                app:layout_constraintStart_toStartOf = "parent"
+                app:layout_constraintTop_toBottomOf = "@id/detailsView_descriptionTitle"
+                tools:text = "long OL description" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</ScrollView>

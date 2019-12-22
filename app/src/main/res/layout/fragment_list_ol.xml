@@ -4,7 +4,7 @@
     android:id = "@+id/container_mainList"
     android:layout_width = "match_parent"
     android:layout_height = "match_parent"
-    tools:context = ".fragments.ListOLFragment">
+    tools:context = ".oompaLoompasList.ListOLFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id = "@+id/main_listOL"

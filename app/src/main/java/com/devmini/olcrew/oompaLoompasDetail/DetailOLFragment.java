@@ -1,4 +1,4 @@
-package com.devmini.olcrew.fragments;
+package com.devmini.olcrew.oompaLoompasDetail;
 
 
 import android.os.Bundle;

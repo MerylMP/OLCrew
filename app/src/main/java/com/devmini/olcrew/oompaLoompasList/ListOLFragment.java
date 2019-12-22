@@ -1,10 +1,11 @@
-package com.devmini.olcrew.fragments;
+package com.devmini.olcrew.oompaLoompasList;
 
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,11 +21,13 @@ import com.devmini.olcrew.utils.RowCardDecorator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListOLFragment extends Fragment {
 
-    private List<OompaLoompa> oompaLoompasList = new ArrayList<>();
+public class ListOLFragment extends Fragment implements ListOLMVPInterface.View {
+
+    private List<OompaLoompa> oompaLoompasFinalList = new ArrayList<>();
     private RecyclerView recyclerView;
     private OLAdapter olAdapter;
+    private ListOLMVPInterface.Presenter presenter;
 
 
     public ListOLFragment() {
@@ -42,28 +45,32 @@ public class ListOLFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        presenter = new ListOLFragmentPresenter(this);
+
+        // RecyclerView
         recyclerView = view.findViewById(R.id.main_listOL);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.addItemDecoration(new RowCardDecorator());
 
-        // TODO delete this fake data after api call
-        OompaLoompa ol1 = new OompaLoompa();
-        ol1.setImage("https://via.placeholder.com/50/FFFF00/000000?Text=WebsiteBuilders.com");
-        ol1.setFirst_name("nombre1");
-        ol1.setLast_name("apellido1");
-        ol1.setProfession("profesion1");
-        ol1.setEmail("email1");
-        OompaLoompa ol2 = new OompaLoompa();
-        ol2.setImage("");
-        ol2.setFirst_name("nombre2");
-        ol2.setLast_name("apellido2");
-        ol2.setProfession("profesion2");
-        ol2.setEmail("email2");
-        oompaLoompasList.add(ol1);
-        oompaLoompasList.add(ol2);
-
-        olAdapter = new OLAdapter(getContext(), oompaLoompasList);
+        olAdapter = new OLAdapter(getContext(), oompaLoompasFinalList);
         recyclerView.setAdapter(olAdapter);
+
+        presenter.getOompaLoompasList();
+    }
+
+
+    @Override
+    public void loadOlList(List<OompaLoompa> results) {
+        this.oompaLoompasFinalList.addAll(results);
+        olAdapter.notifyDataSetChanged();
+    }
+
+
+    @Override
+    public void showError(String error) {
+        // TODO improve layout
+        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
     }
 }

@@ -7,8 +7,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.devmini.olcrew.R;
-import com.devmini.olcrew.fragments.DetailOLFragment;
-import com.devmini.olcrew.fragments.ListOLFragment;
+import com.devmini.olcrew.oompaLoompasDetail.DetailOLFragment;
+import com.devmini.olcrew.oompaLoompasList.ListOLFragment;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -4,13 +4,13 @@
     xmlns:tools = "http://schemas.android.com/tools"
     android:layout_width = "match_parent"
     android:layout_height = "match_parent"
-    tools:context = ".fragments.DetailOLFragment">
+    tools:context = ".oompaLoompasDetail.DetailOLFragment">
 
     <FrameLayout
         android:id = "@+id/container_detailView"
         android:layout_width = "match_parent"
         android:layout_height = "wrap_content"
-        tools:context = ".fragments.DetailOLFragment">
+        tools:context = ".oompaLoompasDetail.DetailOLFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width = "match_parent"

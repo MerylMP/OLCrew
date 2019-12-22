@@ -1,7 +1,5 @@
 package com.devmini.olcrew.modelData;
 
-import java.util.List;
-
 public class OompaLoompa {
 
     private String first_name;
@@ -15,7 +13,7 @@ public class OompaLoompa {
     private String profession;
     private String description;
     private String quota;
-    private List<Favorite> favoriteThings;
+    private Favorite favorite;
 
 
     public OompaLoompa() {
@@ -24,7 +22,7 @@ public class OompaLoompa {
 
     // Constructor with all atributes
     public OompaLoompa(String first_name, String last_name, String age, String height, String gender, String email, String country, String image,
-                       String profession, String description, String quota, List<Favorite> favoriteThings) {
+                       String profession, String description, String quota, Favorite favorite) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.age = age;
@@ -36,7 +34,7 @@ public class OompaLoompa {
         this.profession = profession;
         this.description = description;
         this.quota = quota;
-        this.favoriteThings = favoriteThings;
+        this.favorite = favorite;
     }
 
     public String getFirst_name() {
@@ -127,12 +125,12 @@ public class OompaLoompa {
         this.quota = quota;
     }
 
-    public List<Favorite> getFavoriteThings() {
-        return favoriteThings;
+    public Favorite getFavorite() {
+        return favorite;
     }
 
-    public void setFavoriteThings(List<Favorite> favoriteThings) {
-        this.favoriteThings = favoriteThings;
+    public void setFavorite(Favorite favorite) {
+        this.favorite = favorite;
     }
 
     @Override
@@ -149,7 +147,7 @@ public class OompaLoompa {
                 ", profession='" + profession + '\'' +
                 ", description='" + description + '\'' +
                 ", quota='" + quota + '\'' +
-                ", favoriteThings=" + favoriteThings +
+                ", favorite=" + favorite +
                 '}';
     }
 }

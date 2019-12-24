@@ -2,10 +2,11 @@ package com.devmini.olcrew.modelData;
 
 public class OompaLoompa {
 
+    private int id;
     private String first_name;
     private String last_name;
-    private String age;
-    private String height;
+    private int age;
+    private int height;
     private String gender;
     private String email;
     private String country;
@@ -21,8 +22,9 @@ public class OompaLoompa {
 
 
     // Constructor with all atributes
-    public OompaLoompa(String first_name, String last_name, String age, String height, String gender, String email, String country, String image,
+    public OompaLoompa(int id, String first_name, String last_name, int age, int height, String gender, String email, String country, String image,
                        String profession, String description, String quota, Favorite favorite) {
+        this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.age = age;
@@ -35,6 +37,14 @@ public class OompaLoompa {
         this.description = description;
         this.quota = quota;
         this.favorite = favorite;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirst_name() {
@@ -53,19 +63,19 @@ public class OompaLoompa {
         this.last_name = last_name;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
-    public String getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(String height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 

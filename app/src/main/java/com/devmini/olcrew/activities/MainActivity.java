@@ -25,9 +25,9 @@ public class MainActivity extends AppCompatActivity {
         changeFragment(listOLFragment);
     }
 
-    private void changeFragment(Fragment fragment) {
+    public void changeFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.list_container, fragment);
+        fragmentTransaction.replace(R.id.list_container, fragment).addToBackStack(fragment.getTag());
         fragmentTransaction.commit();
     }
 }

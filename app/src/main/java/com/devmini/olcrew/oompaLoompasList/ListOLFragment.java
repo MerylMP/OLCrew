@@ -54,7 +54,7 @@ public class ListOLFragment extends Fragment implements ListOLMVPInterface.View 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.addItemDecoration(new RowCardDecorator());
 
-        olAdapter = new OLAdapter(getContext(), oompaLoompasFinalList);
+        olAdapter = new OLAdapter(getContext(), oompaLoompasFinalList, this);
         recyclerView.setAdapter(olAdapter);
 
         presenter.getOompaLoompasList();

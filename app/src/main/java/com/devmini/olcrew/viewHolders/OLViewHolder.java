@@ -10,10 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.devmini.olcrew.R;
+import com.devmini.olcrew.adapters.OLAdapter;
 import com.devmini.olcrew.modelData.OompaLoompa;
 
 public class OLViewHolder extends RecyclerView.ViewHolder {
 
+    private OLAdapter adapter;
     private Context context;
     private ImageView image;
     private TextView firstName;
@@ -22,36 +24,45 @@ public class OLViewHolder extends RecyclerView.ViewHolder {
     private TextView email;
 
 
-    public OLViewHolder(@NonNull View itemView, Context context) {
+    public OLViewHolder(@NonNull View itemView, Context context, OLAdapter adapter) {
         super(itemView);
         this.context = context;
+        this.adapter = adapter;
 
-        image = itemView.findViewById(R.id.rowListOL_image);
-        firstName = itemView.findViewById(R.id.rowListOL_firstName);
-        lastName = itemView.findViewById(R.id.rowListOL_lastName);
-        profession = itemView.findViewById(R.id.rowListOL_profession);
-        email = itemView.findViewById(R.id.rowListOL_email);
+        this.image = itemView.findViewById(R.id.rowListOL_image);
+        this.firstName = itemView.findViewById(R.id.rowListOL_firstName);
+        this.lastName = itemView.findViewById(R.id.rowListOL_lastName);
+        this.profession = itemView.findViewById(R.id.rowListOL_profession);
+        this.email = itemView.findViewById(R.id.rowListOL_email);
     }
 
-    public void bindView(OompaLoompa oompaLoompa) {
+    public void bindView(final OompaLoompa oompaLoompa) {
 
         if (oompaLoompa.getImage().isEmpty()) {
             Glide.with(this.context)
                     .load(R.drawable.olplaceholder)
                     .centerCrop()
                     .placeholder(R.drawable.olplaceholder)
-                    .into(image);
+                    .into(this.image);
         } else {
             Glide.with(this.context)
                     .load(oompaLoompa.getImage())
                     .centerCrop()
                     .placeholder(R.drawable.olplaceholder)
-                    .into(image);
+                    .into(this.image);
         }
 
-        firstName.setText(oompaLoompa.getFirst_name());
-        lastName.setText(oompaLoompa.getLast_name());
-        profession.setText(oompaLoompa.getProfession());
-        email.setText(oompaLoompa.getEmail());
+        this.firstName.setText(oompaLoompa.getFirst_name());
+        this.lastName.setText(oompaLoompa.getLast_name());
+        this.profession.setText(oompaLoompa.getProfession());
+        this.email.setText(oompaLoompa.getEmail());
+
+        this.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int selectedId = oompaLoompa.getId();
+                adapter.selectOompaLoompa(selectedId);
+            }
+        });
     }
 }

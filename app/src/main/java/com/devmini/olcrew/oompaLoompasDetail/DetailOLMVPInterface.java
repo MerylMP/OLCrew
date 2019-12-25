@@ -8,6 +8,8 @@ public interface DetailOLMVPInterface {
         void loadOompaLoompa(OompaLoompa oompaLoompa);
 
         void showError(int error);
+
+        void showLoading(boolean showLoading);
     }
 
     interface Presenter {

@@ -7,6 +7,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +38,7 @@ public class DetailOLFragment extends Fragment implements DetailOLMVPInterface.V
     private TextView color;
     private TextView food;
     private TextView description;
-
+    private FrameLayout loadingLayout;
 
     public DetailOLFragment() {
         // Required empty public constructor
@@ -63,6 +64,7 @@ public class DetailOLFragment extends Fragment implements DetailOLMVPInterface.V
 
         this.presenter = new DetailOLFragmentPresenter(this);
 
+        this.loadingLayout = view.findViewById(R.id.detailsView_spinnerLoader);
         this.imageView = view.findViewById(R.id.detailsView_image);
         this.firstName = view.findViewById(R.id.detailsView_firstName);
         this.lastName = view.findViewById(R.id.detailsView_lastName);
@@ -122,5 +124,14 @@ public class DetailOLFragment extends Fragment implements DetailOLMVPInterface.V
     public void showError(int error) {
         // TODO improve layout
         Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showLoading(boolean showLoading) {
+        if (showLoading) {
+            this.loadingLayout.setVisibility(View.VISIBLE);
+        } else {
+            this.loadingLayout.setVisibility(View.GONE);
+        }
     }
 }

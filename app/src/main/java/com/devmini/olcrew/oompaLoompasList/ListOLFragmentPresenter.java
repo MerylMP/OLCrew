@@ -17,16 +17,19 @@ public class ListOLFragmentPresenter implements ListOLMVPInterface.Presenter {
 
     @Override
     public void getOompaLoompasList() {
+        this.view.showLoading(true);
         this.model.getOompaLoompasList();
     }
 
     @Override
     public void retrievedOlList(List<OompaLoompa> results) {
         this.view.loadOlList(results);
+        this.view.showLoading(false);
     }
 
     @Override
     public void onFailureResponse(int error) {
+        this.view.showLoading(false);
         this.view.showError(error);
     }
 }

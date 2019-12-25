@@ -9,6 +9,8 @@ public interface ListOLMVPInterface {
         void loadOlList(List<OompaLoompa> results);
 
         void showError(int error);
+
+        void showLoading(boolean showLoading);
     }
 
     interface Presenter {

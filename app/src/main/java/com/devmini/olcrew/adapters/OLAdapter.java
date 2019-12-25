@@ -42,12 +42,12 @@ public class OLAdapter extends RecyclerView.Adapter<OLViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull final OLViewHolder olViewHolder, final int position) {
-        olViewHolder.bindView(oompaLoompasList.get(position));
+        olViewHolder.bindView(this.oompaLoompasList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return oompaLoompasList.size();
+        return this.oompaLoompasList.size();
     }
 
 

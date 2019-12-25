@@ -29,11 +29,11 @@ public class OLViewHolder extends RecyclerView.ViewHolder {
         this.context = context;
         this.adapter = adapter;
 
-        image = itemView.findViewById(R.id.rowListOL_image);
-        firstName = itemView.findViewById(R.id.rowListOL_firstName);
-        lastName = itemView.findViewById(R.id.rowListOL_lastName);
-        profession = itemView.findViewById(R.id.rowListOL_profession);
-        email = itemView.findViewById(R.id.rowListOL_email);
+        this.image = itemView.findViewById(R.id.rowListOL_image);
+        this.firstName = itemView.findViewById(R.id.rowListOL_firstName);
+        this.lastName = itemView.findViewById(R.id.rowListOL_lastName);
+        this.profession = itemView.findViewById(R.id.rowListOL_profession);
+        this.email = itemView.findViewById(R.id.rowListOL_email);
     }
 
     public void bindView(final OompaLoompa oompaLoompa) {
@@ -43,21 +43,21 @@ public class OLViewHolder extends RecyclerView.ViewHolder {
                     .load(R.drawable.olplaceholder)
                     .centerCrop()
                     .placeholder(R.drawable.olplaceholder)
-                    .into(image);
+                    .into(this.image);
         } else {
             Glide.with(this.context)
                     .load(oompaLoompa.getImage())
                     .centerCrop()
                     .placeholder(R.drawable.olplaceholder)
-                    .into(image);
+                    .into(this.image);
         }
 
-        firstName.setText(oompaLoompa.getFirst_name());
-        lastName.setText(oompaLoompa.getLast_name());
-        profession.setText(oompaLoompa.getProfession());
-        email.setText(oompaLoompa.getEmail());
+        this.firstName.setText(oompaLoompa.getFirst_name());
+        this.lastName.setText(oompaLoompa.getLast_name());
+        this.profession.setText(oompaLoompa.getProfession());
+        this.email.setText(oompaLoompa.getEmail());
 
-        itemView.setOnClickListener(new View.OnClickListener() {
+        this.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int selectedId = oompaLoompa.getId();

@@ -48,7 +48,7 @@ public class DetailOLFragment extends Fragment implements DetailOLMVPInterface.V
         super.onCreate(savedInstanceState);
 
         Bundle bundle = getArguments();
-        oompaLoompaId = bundle.getInt("oompaSelected");
+        this.oompaLoompaId = bundle.getInt("oompaSelected");
     }
 
     @Override
@@ -61,20 +61,20 @@ public class DetailOLFragment extends Fragment implements DetailOLMVPInterface.V
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        presenter = new DetailOLFragmentPresenter(this);
+        this.presenter = new DetailOLFragmentPresenter(this);
 
-        imageView = view.findViewById(R.id.detailsView_image);
-        firstName = view.findViewById(R.id.detailsView_firstName);
-        lastName = view.findViewById(R.id.detailsView_lastName);
-        profession = view.findViewById(R.id.detailsView_profession);
-        email = view.findViewById(R.id.detailsView_email);
-        age = view.findViewById(R.id.detailsView_age);
-        height = view.findViewById(R.id.detailsView_height);
-        gender = view.findViewById(R.id.detailsView_gender);
-        country = view.findViewById(R.id.detailsView_country);
-        color = view.findViewById(R.id.detailsView_color);
-        food = view.findViewById(R.id.detailsView_food);
-        description = view.findViewById(R.id.detailsView_description);
+        this.imageView = view.findViewById(R.id.detailsView_image);
+        this.firstName = view.findViewById(R.id.detailsView_firstName);
+        this.lastName = view.findViewById(R.id.detailsView_lastName);
+        this.profession = view.findViewById(R.id.detailsView_profession);
+        this.email = view.findViewById(R.id.detailsView_email);
+        this.age = view.findViewById(R.id.detailsView_age);
+        this.height = view.findViewById(R.id.detailsView_height);
+        this.gender = view.findViewById(R.id.detailsView_gender);
+        this.country = view.findViewById(R.id.detailsView_country);
+        this.color = view.findViewById(R.id.detailsView_color);
+        this.food = view.findViewById(R.id.detailsView_food);
+        this.description = view.findViewById(R.id.detailsView_description);
 
         this.presenter.getOompaLoompaById(oompaLoompaId);
     }
@@ -119,7 +119,7 @@ public class DetailOLFragment extends Fragment implements DetailOLMVPInterface.V
     }
 
     @Override
-    public void showError(String error) {
+    public void showError(int error) {
         // TODO improve layout
         Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
     }

@@ -2,6 +2,7 @@ package com.devmini.olcrew.oompaLoompasDetail;
 
 import android.util.Log;
 
+import com.devmini.olcrew.R;
 import com.devmini.olcrew.modelData.OompaLoompa;
 import com.devmini.olcrew.retrofit.OompaLoompasAPI;
 import com.devmini.olcrew.retrofit.OompaLoompasClient;
@@ -25,13 +26,13 @@ public class DetailOLFragmentModel implements DetailOLMVPInterface.Model {
     @Override
     public void getOompaLoompasById(int oompaID) {
 
-        Call<OompaLoompa> call = oompaLoompasAPI.getOompaLoompaById(oompaID);
+        Call<OompaLoompa> call = this.oompaLoompasAPI.getOompaLoompaById(oompaID);
         call.enqueue(new Callback<OompaLoompa>() {
             @Override
             public void onResponse(Call<OompaLoompa> call, Response<OompaLoompa> response) {
                 if (!response.isSuccessful()) {
                     Log.d("OompaLoompa_details", "Unsuccesful response. Code: " + response.code());
-                    presenter.onFailureResponse("Error al recuperar la información");
+                    presenter.onFailureResponse(R.string.error_unsuccessfulResponse);
                     return;
                 }
 
@@ -42,7 +43,7 @@ public class DetailOLFragmentModel implements DetailOLMVPInterface.Model {
             @Override
             public void onFailure(Call<OompaLoompa> call, Throwable t) {
                 Log.d("OompaLoompa_details", "Response failed. " + t.getMessage());
-                presenter.onFailureResponse("Error en la conexión con el servidor");
+                presenter.onFailureResponse(R.string.error_failureResponse);
             }
         });
     }

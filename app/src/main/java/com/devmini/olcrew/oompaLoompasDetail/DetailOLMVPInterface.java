@@ -7,7 +7,7 @@ public interface DetailOLMVPInterface {
     interface View {
         void loadOompaLoompa(OompaLoompa oompaLoompa);
 
-        void showError(String error);
+        void showError(int error);
     }
 
     interface Presenter {
@@ -15,7 +15,7 @@ public interface DetailOLMVPInterface {
 
         void retrievedOLById(OompaLoompa oompaLoompa);
 
-        void onFailureResponse(String error);
+        void onFailureResponse(int error);
     }
 
     interface Model {

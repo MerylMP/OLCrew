@@ -46,30 +46,30 @@ public class ListOLFragment extends Fragment implements ListOLMVPInterface.View 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        presenter = new ListOLFragmentPresenter(this);
+        this.presenter = new ListOLFragmentPresenter(this);
 
         // RecyclerView
-        recyclerView = view.findViewById(R.id.main_listOL);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        recyclerView.addItemDecoration(new RowCardDecorator());
+        this.recyclerView = view.findViewById(R.id.main_listOL);
+        this.recyclerView.setHasFixedSize(true);
+        this.recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        this.recyclerView.addItemDecoration(new RowCardDecorator());
 
-        olAdapter = new OLAdapter(getContext(), oompaLoompasFinalList, this);
-        recyclerView.setAdapter(olAdapter);
+        this.olAdapter = new OLAdapter(getContext(), oompaLoompasFinalList, this);
+        this.recyclerView.setAdapter(olAdapter);
 
-        presenter.getOompaLoompasList();
+        this.presenter.getOompaLoompasList();
     }
 
 
     @Override
     public void loadOlList(List<OompaLoompa> results) {
         this.oompaLoompasFinalList.addAll(results);
-        olAdapter.notifyDataSetChanged();
+        this.olAdapter.notifyDataSetChanged();
     }
 
 
     @Override
-    public void showError(String error) {
+    public void showError(int error) {
         // TODO improve layout
         Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
     }

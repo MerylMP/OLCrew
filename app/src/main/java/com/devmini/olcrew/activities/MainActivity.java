@@ -20,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listOLFragment = new ListOLFragment();
-        detailOLFragment = new DetailOLFragment();
+        this.listOLFragment = new ListOLFragment();
+        this.detailOLFragment = new DetailOLFragment();
         changeFragment(listOLFragment);
     }
 

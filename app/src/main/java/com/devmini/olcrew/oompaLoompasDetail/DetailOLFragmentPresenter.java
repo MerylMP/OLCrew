@@ -24,7 +24,7 @@ public class DetailOLFragmentPresenter implements DetailOLMVPInterface.Presenter
     }
 
     @Override
-    public void onFailureResponse(String error) {
+    public void onFailureResponse(int error) {
         this.view.showError(error);
     }
 }

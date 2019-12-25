@@ -26,7 +26,7 @@ public class ListOLFragmentPresenter implements ListOLMVPInterface.Presenter {
     }
 
     @Override
-    public void onFailureResponse(String error) {
+    public void onFailureResponse(int error) {
         this.view.showError(error);
     }
 }

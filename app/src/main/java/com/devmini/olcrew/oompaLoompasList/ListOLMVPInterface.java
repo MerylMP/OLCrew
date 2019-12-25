@@ -8,7 +8,7 @@ public interface ListOLMVPInterface {
     interface View {
         void loadOlList(List<OompaLoompa> results);
 
-        void showError(String error);
+        void showError(int error);
     }
 
     interface Presenter {
@@ -16,7 +16,7 @@ public interface ListOLMVPInterface {
 
         void retrievedOlList(List<OompaLoompa> results);
 
-        void onFailureResponse(String error);
+        void onFailureResponse(int error);
     }
 
     interface Model {

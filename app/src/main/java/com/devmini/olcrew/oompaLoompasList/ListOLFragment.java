@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.devmini.olcrew.R;
 import com.devmini.olcrew.adapters.OLAdapter;
+import com.devmini.olcrew.adapters.PaginationScrollListener;
 import com.devmini.olcrew.modelData.OompaLoompa;
 import com.devmini.olcrew.utils.RowCardDecorator;
 
@@ -28,12 +30,23 @@ public class ListOLFragment extends Fragment implements ListOLMVPInterface.View 
     private RecyclerView recyclerView;
     private OLAdapter olAdapter;
     private ListOLMVPInterface.Presenter presenter;
+    private FrameLayout loadingLayout;
+
+    private static final int PAGE_START = 1;
+    private int currentPage = PAGE_START;
+    private boolean isLoading = false;
+    private boolean isLastPage = false;
 
 
     public ListOLFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.presenter = new ListOLFragmentPresenter(this);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,7 +59,7 @@ public class ListOLFragment extends Fragment implements ListOLMVPInterface.View 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        this.presenter = new ListOLFragmentPresenter(this);
+        this.loadingLayout = view.findViewById(R.id.main_spinnerLoader);
 
         // RecyclerView
         this.recyclerView = view.findViewById(R.id.main_listOL);
@@ -57,7 +70,28 @@ public class ListOLFragment extends Fragment implements ListOLMVPInterface.View 
         this.olAdapter = new OLAdapter(getContext(), oompaLoompasFinalList, this);
         this.recyclerView.setAdapter(olAdapter);
 
-        this.presenter.getOompaLoompasList();
+
+        this.recyclerView.addOnScrollListener(new PaginationScrollListener() {
+            @Override
+            protected void loadMoreItems() {
+                isLoading = true;
+                currentPage += 1;
+                presenter.getOompaLoompasList(currentPage);
+            }
+
+            @Override
+            protected boolean isLoading() {
+                return isLoading;
+            }
+
+            @Override
+            protected boolean isLastPage() {
+                return isLastPage;
+            }
+        });
+
+
+        this.presenter.getOompaLoompasList(currentPage);
     }
 
 
@@ -67,10 +101,28 @@ public class ListOLFragment extends Fragment implements ListOLMVPInterface.View 
         this.olAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void isLastPageListed(boolean isLastPageListed) {
+        this.isLastPage = isLastPageListed;
+    }
+
+    @Override
+    public void isLoadingInfo(boolean isLoadingInfo) {
+        this.isLoading = isLoadingInfo;
+    }
 
     @Override
     public void showError(int error) {
         // TODO improve layout
         Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showLoading(boolean showLoading) {
+        if (showLoading) {
+            this.loadingLayout.setVisibility(View.VISIBLE);
+        } else {
+            this.loadingLayout.setVisibility(View.GONE);
+        }
     }
 }

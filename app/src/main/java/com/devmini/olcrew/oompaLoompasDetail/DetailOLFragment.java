@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.devmini.olcrew.R;
+import com.devmini.olcrew.activities.MainActivity;
 import com.devmini.olcrew.modelData.OompaLoompa;
 
 public class DetailOLFragment extends Fragment implements DetailOLMVPInterface.View {
@@ -62,6 +63,8 @@ public class DetailOLFragment extends Fragment implements DetailOLMVPInterface.V
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ((MainActivity) getActivity()).removeToolbarButtons();
+
         this.presenter = new DetailOLFragmentPresenter(this);
 
         this.loadingLayout = view.findViewById(R.id.detailsView_spinnerLoader);
@@ -85,6 +88,7 @@ public class DetailOLFragment extends Fragment implements DetailOLMVPInterface.V
     public void loadOompaLoompa(OompaLoompa oompaLoompa) {
 
         this.oompaLoompa = oompaLoompa;
+        setToolbarMessage();
 
         this.firstName.setText(this.oompaLoompa.getFirst_name());
         this.lastName.setText(this.oompaLoompa.getLast_name());
@@ -133,5 +137,10 @@ public class DetailOLFragment extends Fragment implements DetailOLMVPInterface.V
         } else {
             this.loadingLayout.setVisibility(View.GONE);
         }
+    }
+
+    private void setToolbarMessage() {
+        String message = this.oompaLoompa.getFirst_name() + " " + this.oompaLoompa.getLast_name();
+        ((MainActivity) getActivity()).setToolbarMessage(message);
     }
 }

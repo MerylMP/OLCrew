@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.devmini.olcrew.R;
+import com.devmini.olcrew.activities.MainActivity;
 import com.devmini.olcrew.adapters.OLAdapter;
 import com.devmini.olcrew.adapters.PaginationScrollListener;
 import com.devmini.olcrew.modelData.OompaLoompa;
@@ -59,6 +60,8 @@ public class ListOLFragment extends Fragment implements ListOLMVPInterface.View 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        setToolbarMessage();
+        ((MainActivity) getActivity()).showFilterButton();
         this.loadingLayout = view.findViewById(R.id.main_spinnerLoader);
 
         // RecyclerView
@@ -124,5 +127,10 @@ public class ListOLFragment extends Fragment implements ListOLMVPInterface.View 
         } else {
             this.loadingLayout.setVisibility(View.GONE);
         }
+    }
+
+    private void setToolbarMessage() {
+        String message = getString(R.string.directory);
+        ((MainActivity) getActivity()).setToolbarMessage(message);
     }
 }

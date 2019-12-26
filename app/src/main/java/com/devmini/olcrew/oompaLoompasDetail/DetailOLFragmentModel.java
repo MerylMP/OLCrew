@@ -4,8 +4,8 @@ import android.util.Log;
 
 import com.devmini.olcrew.R;
 import com.devmini.olcrew.modelData.OompaLoompa;
+import com.devmini.olcrew.retrofit.OompaLoompasService;
 import com.devmini.olcrew.retrofit.OompaLoompasAPI;
-import com.devmini.olcrew.retrofit.OompaLoompasClient;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -14,19 +14,19 @@ import retrofit2.Response;
 public class DetailOLFragmentModel implements DetailOLMVPInterface.Model {
 
     private DetailOLMVPInterface.Presenter presenter;
-    private OompaLoompasAPI oompaLoompasAPI;
+    private OompaLoompasService oompaLoompasService;
 
 
     public DetailOLFragmentModel(DetailOLMVPInterface.Presenter presenter) {
         this.presenter = presenter;
-        this.oompaLoompasAPI = OompaLoompasClient.getAPI();
+        this.oompaLoompasService = OompaLoompasAPI.getClient();
     }
 
 
     @Override
     public void getOompaLoompasById(int oompaID) {
 
-        Call<OompaLoompa> call = this.oompaLoompasAPI.getOompaLoompaById(oompaID);
+        Call<OompaLoompa> call = this.oompaLoompasService.getOompaLoompaById(oompaID);
         call.enqueue(new Callback<OompaLoompa>() {
             @Override
             public void onResponse(Call<OompaLoompa> call, Response<OompaLoompa> response) {

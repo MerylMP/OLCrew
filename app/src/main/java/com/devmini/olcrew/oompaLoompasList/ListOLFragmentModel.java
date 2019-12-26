@@ -5,7 +5,7 @@ import android.util.Log;
 import com.devmini.olcrew.R;
 import com.devmini.olcrew.modelData.APIMainResponse;
 import com.devmini.olcrew.retrofit.OompaLoompasAPI;
-import com.devmini.olcrew.retrofit.OompaLoompasClient;
+import com.devmini.olcrew.retrofit.OompaLoompasService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -14,18 +14,17 @@ import retrofit2.Response;
 public class ListOLFragmentModel implements ListOLMVPInterface.Model {
 
     private ListOLMVPInterface.Presenter presenter;
-    private static final int PAGENUMBER = 1;
-    private OompaLoompasAPI oompaLoompasAPI;
+    private OompaLoompasService oompaLoompasService;
 
 
     public ListOLFragmentModel(ListOLMVPInterface.Presenter presenter) {
         this.presenter = presenter;
-        this.oompaLoompasAPI = OompaLoompasClient.getAPI();
+        this.oompaLoompasService = OompaLoompasAPI.getClient();
     }
 
     @Override
-    public void getOompaLoompasList() {
-        Call<APIMainResponse> call = this.oompaLoompasAPI.getOompaLoompas(PAGENUMBER);
+    public void getOompaLoompasList(int page) {
+        Call<APIMainResponse> call = this.oompaLoompasService.getOompaLoompas(page);
         call.enqueue(new Callback<APIMainResponse>() {
             @Override
             public void onResponse(Call<APIMainResponse> call, Response<APIMainResponse> response) {

@@ -1,20 +1,21 @@
 package com.devmini.olcrew.retrofit;
 
-import com.devmini.olcrew.modelData.APIMainResponse;
-import com.devmini.olcrew.modelData.OompaLoompa;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-import retrofit2.Call;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
+public class OompaLoompasAPI {
 
-public interface OompaLoompasAPI {
+    private static Retrofit retrofit = null;
 
-    // GET list of OompaLoompas
-    @GET("oompa-loompas")
-    Call<APIMainResponse> getOompaLoompas(@Query("page") int pageNumber);
 
-    // GET info from ONE OompaLoompa
-    @GET("oompa-loompas/{id}")
-    Call<OompaLoompa> getOompaLoompaById(@Path("id") int oompaLoompaId);
+    public static OompaLoompasService getClient() {
+        if (retrofit == null) {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl("https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        }
+
+        return retrofit.create(OompaLoompasService.class);
+    }
 }

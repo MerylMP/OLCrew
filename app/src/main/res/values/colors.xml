@@ -4,4 +4,6 @@
     <color name = "colorPrimaryDark">#00574B</color>
     <color name = "colorAccent">#D81B60</color>
     <color name = "chocolate">#A85418</color>
+    <color name = "chocolatePrimary">#8D6E63</color>
+    <color name = "chocolatePrimaryDark">#5D4037</color>
 </resources>

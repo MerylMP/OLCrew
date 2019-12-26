@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void changeFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.list_container, fragment).addToBackStack(fragment.getTag());
+        fragmentTransaction.replace(R.id.list_container, fragment).addToBackStack(fragment.getClass().getSimpleName());
         fragmentTransaction.commit();
     }
 
@@ -67,5 +67,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void setFilterAction(View.OnClickListener onClickListener) {
         this.filter.setOnClickListener(onClickListener);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            getSupportFragmentManager().popBackStack();
+        } else {
+            finish();
+        }
     }
 }

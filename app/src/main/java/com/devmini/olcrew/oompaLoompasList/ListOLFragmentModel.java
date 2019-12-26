@@ -35,6 +35,8 @@ public class ListOLFragmentModel implements ListOLMVPInterface.Model {
                 }
 
                 APIMainResponse apiMainResponse = response.body();
+                Log.d("page", "page: " + apiMainResponse.getCurrent());
+                presenter.retrieveTotalPages(apiMainResponse.getTotal());
                 presenter.retrievedOlList(apiMainResponse.getResults());
             }
 

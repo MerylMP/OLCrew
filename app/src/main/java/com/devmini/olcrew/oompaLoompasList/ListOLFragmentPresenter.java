@@ -11,8 +11,8 @@ public class ListOLFragmentPresenter implements ListOLMVPInterface.Presenter {
     private ListOLMVPInterface.View view;
     private int currentPage = 0;
     private int totalPages = 1;
-    private List<String> gender = new ArrayList<>();
-    private List<String> professions = new ArrayList<>();
+    private List<String> genderSelectionList = new ArrayList<>();
+    private List<String> professionSelectionList = new ArrayList<>();
     private List<OompaLoompa> olResultsList = new ArrayList<>();
     private List<OompaLoompa> olFiltered = new ArrayList<>();
     private boolean isFilterActive = false;
@@ -44,10 +44,11 @@ public class ListOLFragmentPresenter implements ListOLMVPInterface.Presenter {
             this.view.isLastPageListed(true);
         }
 
+        generateFilterLists(results);
+
         this.olResultsList.addAll(results);
         this.view.isLoadingInfo(false);
         this.view.showLoading(false);
-
 
         if (isFilterActive) {
             applyFilters(this.genderFilter, this.professionsFilter);
@@ -56,6 +57,7 @@ public class ListOLFragmentPresenter implements ListOLMVPInterface.Presenter {
             this.view.loadOlList(results);
         }
     }
+
 
     @Override
     public void retrieveTotalPages(int totalPages) {
@@ -77,6 +79,20 @@ public class ListOLFragmentPresenter implements ListOLMVPInterface.Presenter {
         this.professionsFilter.addAll(professionsFilter);
         applyFilters(this.genderFilter, this.professionsFilter);
     }
+
+
+    private void generateFilterLists(List<OompaLoompa> results) {
+        for(OompaLoompa oompaLoompa : results) {
+            if(!genderSelectionList.contains(oompaLoompa.getGender())){
+                genderSelectionList.add(oompaLoompa.getGender());
+            }
+
+            if(!professionSelectionList.contains(oompaLoompa.getProfession())){
+                professionSelectionList.add(oompaLoompa.getProfession());
+            }
+        }
+    }
+
 
     private void applyFilters(List<String> genderFilter, List<String> professionsFilter) {
         this.olFiltered.clear();

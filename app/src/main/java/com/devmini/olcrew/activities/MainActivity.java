@@ -64,4 +64,8 @@ public class MainActivity extends AppCompatActivity {
     public void setToolbarMessage(String message) {
         this.toolbarTitle.setText(message);
     }
+
+    public void setFilterAction(View.OnClickListener onClickListener) {
+        this.filter.setOnClickListener(onClickListener);
+    }
 }

@@ -15,6 +15,8 @@ public interface ListOLMVPInterface {
         void isLoadingInfo(boolean isLoadingInfo);
 
         void showError(int error);
+
+        void loadFilteredList(List<OompaLoompa> olFiltered);
     }
 
     interface Presenter {
@@ -25,6 +27,9 @@ public interface ListOLMVPInterface {
         void retrieveTotalPages(int totalPages);
 
         void onFailureResponse(int error);
+
+        void filterOompaLoompas(List<String> genderFilter, List<String> professionsFilter);
+
     }
 
     interface Model {

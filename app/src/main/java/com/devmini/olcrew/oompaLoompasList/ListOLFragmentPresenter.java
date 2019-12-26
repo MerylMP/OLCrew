@@ -2,6 +2,7 @@ package com.devmini.olcrew.oompaLoompasList;
 
 import com.devmini.olcrew.modelData.OompaLoompa;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListOLFragmentPresenter implements ListOLMVPInterface.Presenter {
@@ -10,6 +11,14 @@ public class ListOLFragmentPresenter implements ListOLMVPInterface.Presenter {
     private ListOLMVPInterface.View view;
     private int currentPage = 0;
     private int totalPages = 1;
+    private List<String> gender = new ArrayList<>();
+    private List<String> professions = new ArrayList<>();
+    private List<OompaLoompa> olResultsList = new ArrayList<>();
+    private List<OompaLoompa> olFiltered = new ArrayList<>();
+    private boolean isFilterActive = false;
+
+    private List<String> genderFilter = new ArrayList<>();
+    private List<String> professionsFilter = new ArrayList<>();
 
 
     public ListOLFragmentPresenter(ListOLMVPInterface.View view) {
@@ -35,9 +44,17 @@ public class ListOLFragmentPresenter implements ListOLMVPInterface.Presenter {
             this.view.isLastPageListed(true);
         }
 
-        this.view.loadOlList(results);
+        this.olResultsList.addAll(results);
         this.view.isLoadingInfo(false);
         this.view.showLoading(false);
+
+
+        if (isFilterActive) {
+            applyFilters(this.genderFilter, this.professionsFilter);
+
+        } else {
+            this.view.loadOlList(results);
+        }
     }
 
     @Override
@@ -49,5 +66,67 @@ public class ListOLFragmentPresenter implements ListOLMVPInterface.Presenter {
     public void onFailureResponse(int error) {
         this.view.showLoading(false);
         this.view.showError(error);
+    }
+
+    @Override
+    public void filterOompaLoompas(List<String> genderFilter, List<String> professionsFilter) {
+
+        this.genderFilter.clear();
+        this.genderFilter.addAll(genderFilter);
+        this.professionsFilter.clear();
+        this.professionsFilter.addAll(professionsFilter);
+        applyFilters(this.genderFilter, this.professionsFilter);
+    }
+
+    private void applyFilters(List<String> genderFilter, List<String> professionsFilter) {
+        this.olFiltered.clear();
+
+        if (!genderFilter.isEmpty() && professionsFilter.isEmpty()) {
+            this.olFiltered.addAll(filterOLByGender(genderFilter));
+        }
+
+        if (!professionsFilter.isEmpty() && genderFilter.isEmpty()) {
+            this.olFiltered.addAll(filterOLByProfession(professionsFilter));
+        }
+
+        if (!genderFilter.isEmpty() && !professionsFilter.isEmpty()) {
+            List<OompaLoompa> firstFilterList = new ArrayList<>();
+            firstFilterList.addAll(filterOLByGender(genderFilter));
+
+            for (OompaLoompa oompaLoompa : firstFilterList) {
+                if (professionsFilter.contains(oompaLoompa.getProfession())) {
+                    this.olFiltered.add(oompaLoompa);
+                }
+            }
+        }
+
+        this.isFilterActive = true;
+        this.view.loadFilteredList(olFiltered);
+    }
+
+
+    private List<OompaLoompa> filterOLByGender(List<String> genderFilter) {
+
+        List<OompaLoompa> tempGenderList = new ArrayList<>();
+
+        for (OompaLoompa oompaLoompa : this.olResultsList) {
+            if (genderFilter.contains(oompaLoompa.getGender())) {
+                tempGenderList.add(oompaLoompa);
+            }
+        }
+
+        return tempGenderList;
+    }
+
+    private List<OompaLoompa> filterOLByProfession(List<String> professionsFilter) {
+
+        List<OompaLoompa> tempProfessionList = new ArrayList<>();
+        for (OompaLoompa oompaLoompa : this.olResultsList) {
+            if (professionsFilter.contains(oompaLoompa.getProfession())) {
+                tempProfessionList.add(oompaLoompa);
+            }
+        }
+
+        return tempProfessionList;
     }
 }

@@ -60,8 +60,17 @@ public class ListOLFragment extends Fragment implements ListOLMVPInterface.View 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Toolbar
         setToolbarMessage();
         ((MainActivity) getActivity()).showFilterButton();
+        ((MainActivity) getActivity()).setFilterAction(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFilterDialog();
+            }
+        });
+
+        // Loading layout
         this.loadingLayout = view.findViewById(R.id.main_spinnerLoader);
 
         // RecyclerView
@@ -129,8 +138,25 @@ public class ListOLFragment extends Fragment implements ListOLMVPInterface.View 
         }
     }
 
+    @Override
+    public void loadFilteredList(List<OompaLoompa> olFiltered) {
+        this.oompaLoompasFinalList.clear();
+        this.oompaLoompasFinalList.addAll(olFiltered);
+        this.olAdapter.notifyDataSetChanged();
+    }
+
     private void setToolbarMessage() {
         String message = getString(R.string.directory);
         ((MainActivity) getActivity()).setToolbarMessage(message);
+    }
+
+    private void showFilterDialog() {
+
+        List<String> genderFilter = new ArrayList<>();
+        List<String> professionsFilter = new ArrayList<>();
+        genderFilter.add("F");
+        professionsFilter.add("Developer");
+
+        this.presenter.filterOompaLoompas(genderFilter, professionsFilter);
     }
 }

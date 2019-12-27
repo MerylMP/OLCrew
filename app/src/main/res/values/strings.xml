@@ -14,5 +14,12 @@
     <string name = "error_failureResponse">Error with server connection</string>
     <string name = "directory">Oompa Loompas directory</string>
     <string name = "noResults">Not Oompa Loompas found</string>
+    <string name = "filterGender">Filter by gender</string>
+    <string name = "genderWord">gender</string>
+    <string name = "filterProfession">Filter by profession</string>
+    <string name = "professionWord">profession</string>
+    <string name = "applyFilters">Apply filters</string>
+    <string name = "filterOompaLoompas">Filter Oompa Loompas</string>
+    <string name = "cancel">Cancel</string>
 
 </resources>

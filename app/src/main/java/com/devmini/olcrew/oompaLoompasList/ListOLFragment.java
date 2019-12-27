@@ -1,11 +1,16 @@
 package com.devmini.olcrew.oompaLoompasList;
 
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,6 +43,7 @@ public class ListOLFragment extends Fragment implements ListOLMVPInterface.View 
     private int currentPage = PAGE_START;
     private boolean isLoading = false;
     private boolean isLastPage = false;
+    private MainActivity mainActivity;
 
 
     public ListOLFragment() {
@@ -60,10 +66,27 @@ public class ListOLFragment extends Fragment implements ListOLMVPInterface.View 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        this.mainActivity = (MainActivity) getActivity();
 
+        // Toolbar
         setToolbarMessage();
-        ((MainActivity) getActivity()).showFilterButton();
 
+        this.mainActivity.showFilterButton();
+        this.mainActivity.setFilterAction(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFilterDialog();
+            }
+        });
+
+        this.mainActivity.setCleanFilterAction(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.removeFilters();
+            }
+        });
+
+        // Loading layout
         this.loadingLayout = view.findViewById(R.id.main_spinnerLoader);
         this.noInfoMessage = view.findViewById(R.id.main_noInfoContainer);
 
@@ -119,7 +142,6 @@ public class ListOLFragment extends Fragment implements ListOLMVPInterface.View 
 
     @Override
     public void showError(int error) {
-        // TODO improve layout
         Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
     }
 
@@ -141,8 +163,93 @@ public class ListOLFragment extends Fragment implements ListOLMVPInterface.View 
         }
     }
 
+    @Override
+    public void loadFilteredList(List<OompaLoompa> olFiltered) {
+        this.oompaLoompasFinalList.clear();
+        this.oompaLoompasFinalList.addAll(olFiltered);
+        this.olAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void cleanOLList() {
+        this.oompaLoompasFinalList.clear();
+        this.olAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showCleanFiltersButton() {
+        this.mainActivity.showCleanFiltersButton();
+    }
+
+    @Override
+    public void showFilterButton() {
+        this.mainActivity.showFilterButton();
+    }
+
     private void setToolbarMessage() {
         String message = getString(R.string.directory);
-        ((MainActivity) getActivity()).setToolbarMessage(message);
+        this.mainActivity.setToolbarMessage(message);
+    }
+
+    private void showFilterDialog() {
+        filterDialog().show();
+    }
+
+    private Dialog filterDialog() {
+
+        View filterDialogView = getLayoutInflater().inflate(R.layout.filter_dialog, null, false);
+
+        final LinearLayout genderLinearLayout = filterDialogView.findViewById(R.id.filterDialog_filterGenderList);
+        for (String gender : this.presenter.getGenderSelectionList()) {
+            CheckBox checkBox = new CheckBox(getContext());
+            checkBox.setText(gender);
+            checkBox.setTag(gender);
+            genderLinearLayout.addView(checkBox);
+        }
+
+        final LinearLayout professionLinearLayout = filterDialogView.findViewById(R.id.filterDialog_filterProfessionList);
+        for (String profession : this.presenter.getProfessionSelectionList()) {
+            CheckBox checkBox = new CheckBox(getContext());
+            checkBox.setText(profession);
+            checkBox.setTag(profession);
+            professionLinearLayout.addView(checkBox);
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setView(filterDialogView)
+                .setPositiveButton(R.string.applyFilters, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        List<String> genderFilter = new ArrayList<>();
+                        List<String> professionsFilter = new ArrayList<>();
+
+                        for (int i = 0; i < genderLinearLayout.getChildCount(); i++) {
+                            CheckBox checkBox = (CheckBox) genderLinearLayout.getChildAt(i);
+
+                            if (checkBox.isChecked()) {
+                                genderFilter.add(checkBox.getTag().toString());
+                            }
+                        }
+
+                        for (int i = 0; i < professionLinearLayout.getChildCount(); i++) {
+                            CheckBox checkBox = (CheckBox) professionLinearLayout.getChildAt(i);
+
+                            if (checkBox.isChecked()) {
+                                professionsFilter.add(checkBox.getTag().toString());
+                            }
+                        }
+
+                        presenter.filterOompaLoompas(genderFilter, professionsFilter);
+                    }
+                })
+
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //does nothing
+                    }
+                });
+
+        return builder.create();
     }
 }

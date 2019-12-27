@@ -65,6 +65,15 @@ public class MainActivity extends AppCompatActivity {
         this.toolbarTitle.setText(message);
     }
 
+    public void setFilterAction(View.OnClickListener onClickListener) {
+        this.filter.setOnClickListener(onClickListener);
+    }
+
+    public void setCleanFilterAction(View.OnClickListener onClickListener) {
+        this.cleanFilters.setOnClickListener(onClickListener);
+    }
+
+
     @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() > 1) {

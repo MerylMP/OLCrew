@@ -16,6 +16,7 @@ public class DetailOLFragmentPresenter implements DetailOLMVPInterface.Presenter
     @Override
     public void getOompaLoompaById(int oompaID) {
         this.view.showLoading(true);
+        this.view.showNoInfoMessage(false);
         this.model.getOompaLoompasById(oompaID);
     }
 
@@ -23,12 +24,13 @@ public class DetailOLFragmentPresenter implements DetailOLMVPInterface.Presenter
     public void retrievedOLById(OompaLoompa oompaLoompa) {
         this.view.loadOompaLoompa(oompaLoompa);
         this.view.showLoading(false);
-
+        this.view.showNoInfoMessage(false);
     }
 
     @Override
     public void onFailureResponse(int error) {
         this.view.showLoading(false);
         this.view.showError(error);
+        this.view.showNoInfoMessage(true);
     }
 }

@@ -128,7 +128,6 @@ public class DetailOLFragment extends Fragment implements DetailOLMVPInterface.V
 
     @Override
     public void showError(int error) {
-        // TODO improve layout
         Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
     }
 

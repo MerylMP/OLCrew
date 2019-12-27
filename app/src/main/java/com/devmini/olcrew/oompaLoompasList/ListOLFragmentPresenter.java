@@ -99,27 +99,34 @@ public class ListOLFragmentPresenter implements ListOLMVPInterface.Presenter {
     private void applyFilters(List<String> genderFilter, List<String> professionsFilter) {
         this.olFiltered.clear();
 
-        if (!genderFilter.isEmpty() && professionsFilter.isEmpty()) {
-            this.olFiltered.addAll(filterOLByGender(genderFilter));
-        }
+        if (genderFilter.isEmpty() && professionsFilter.isEmpty()) {
+            removeFilters();
 
-        if (!professionsFilter.isEmpty() && genderFilter.isEmpty()) {
-            this.olFiltered.addAll(filterOLByProfession(professionsFilter));
-        }
+        } else {
 
-        if (!genderFilter.isEmpty() && !professionsFilter.isEmpty()) {
-            List<OompaLoompa> firstFilterList = new ArrayList<>();
-            firstFilterList.addAll(filterOLByGender(genderFilter));
+            if (!genderFilter.isEmpty() && professionsFilter.isEmpty()) {
+                this.olFiltered.addAll(filterOLByGender(genderFilter));
+            }
 
-            for (OompaLoompa oompaLoompa : firstFilterList) {
-                if (professionsFilter.contains(oompaLoompa.getProfession())) {
-                    this.olFiltered.add(oompaLoompa);
+            if (!professionsFilter.isEmpty() && genderFilter.isEmpty()) {
+                this.olFiltered.addAll(filterOLByProfession(professionsFilter));
+            }
+
+            if (!genderFilter.isEmpty() && !professionsFilter.isEmpty()) {
+                List<OompaLoompa> firstFilterList = new ArrayList<>();
+                firstFilterList.addAll(filterOLByGender(genderFilter));
+
+                for (OompaLoompa oompaLoompa : firstFilterList) {
+                    if (professionsFilter.contains(oompaLoompa.getProfession())) {
+                        this.olFiltered.add(oompaLoompa);
+                    }
                 }
             }
-        }
 
-        this.isFilterActive = true;
-        this.view.loadFilteredList(olFiltered);
+            this.isFilterActive = true;
+            this.view.loadFilteredList(olFiltered);
+            this.view.showCleanFiltersButton();
+        }
     }
 
 
@@ -156,5 +163,13 @@ public class ListOLFragmentPresenter implements ListOLMVPInterface.Presenter {
     @Override
     public List<String> getProfessionSelectionList() {
         return this.professionSelectionList;
+    }
+
+    @Override
+    public void removeFilters() {
+        this.isFilterActive = false;
+        this.view.cleanOLList();
+        this.view.showFilterButton();
+        this.view.loadOlList(this.olResultsList);
     }
 }

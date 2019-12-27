@@ -5,6 +5,22 @@
     android:layout_height = "wrap_content">
 
     <TextView
+        android:id = "@+id/filterDialog_filterTitleLabel"
+        android:layout_width = "0dp"
+        android:layout_height = "wrap_content"
+        android:layout_marginStart = "16dp"
+        android:layout_marginTop = "24dp"
+        android:layout_marginEnd = "16dp"
+        android:text = "@string/filterOompaLoompas"
+        android:textAlignment = "textStart"
+        android:textColor = "@color/chocolatePrimaryDark"
+        android:textSize = "18sp"
+        android:textStyle = "bold"
+        app:layout_constraintEnd_toEndOf = "parent"
+        app:layout_constraintStart_toStartOf = "parent"
+        app:layout_constraintTop_toTopOf = "parent" />
+
+    <TextView
         android:id = "@+id/filterDialog_filterGenderLabel"
         android:layout_width = "0dp"
         android:layout_height = "wrap_content"
@@ -17,7 +33,7 @@
         android:textStyle = "bold"
         app:layout_constraintEnd_toEndOf = "parent"
         app:layout_constraintStart_toStartOf = "parent"
-        app:layout_constraintTop_toTopOf = "parent" />
+        app:layout_constraintTop_toBottomOf = "@id/filterDialog_filterTitleLabel" />
 
     <LinearLayout
         android:id = "@+id/filterDialog_filterGenderList"

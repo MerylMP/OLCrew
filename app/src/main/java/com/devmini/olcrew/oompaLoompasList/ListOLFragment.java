@@ -43,6 +43,7 @@ public class ListOLFragment extends Fragment implements ListOLMVPInterface.View 
     private int currentPage = PAGE_START;
     private boolean isLoading = false;
     private boolean isLastPage = false;
+    private MainActivity mainActivity;
 
 
     public ListOLFragment() {
@@ -65,14 +66,23 @@ public class ListOLFragment extends Fragment implements ListOLMVPInterface.View 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        this.mainActivity = (MainActivity) getActivity();
 
         // Toolbar
         setToolbarMessage();
-        ((MainActivity) getActivity()).showFilterButton();
-        ((MainActivity) getActivity()).setFilterAction(new View.OnClickListener() {
+
+        this.mainActivity.showFilterButton();
+        this.mainActivity.setFilterAction(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showFilterDialog();
+            }
+        });
+
+        this.mainActivity.setCleanFilterAction(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.removeFilters();
             }
         });
 
@@ -160,9 +170,25 @@ public class ListOLFragment extends Fragment implements ListOLMVPInterface.View 
         this.olAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void cleanOLList() {
+        this.oompaLoompasFinalList.clear();
+        this.olAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showCleanFiltersButton() {
+        this.mainActivity.showCleanFiltersButton();
+    }
+
+    @Override
+    public void showFilterButton() {
+        this.mainActivity.showFilterButton();
+    }
+
     private void setToolbarMessage() {
         String message = getString(R.string.directory);
-        ((MainActivity) getActivity()).setToolbarMessage(message);
+        this.mainActivity.setToolbarMessage(message);
     }
 
     private void showFilterDialog() {
@@ -190,8 +216,7 @@ public class ListOLFragment extends Fragment implements ListOLMVPInterface.View 
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle(R.string.filterOompaLoompas)
-                .setView(filterDialogView)
+        builder.setView(filterDialogView)
                 .setPositiveButton(R.string.applyFilters, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -215,17 +240,16 @@ public class ListOLFragment extends Fragment implements ListOLMVPInterface.View 
                         }
 
                         presenter.filterOompaLoompas(genderFilter, professionsFilter);
-
-                        dialog.dismiss();
                     }
                 })
+
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //does nothing
-                        dialog.dismiss();
                     }
                 });
+
         return builder.create();
     }
 }

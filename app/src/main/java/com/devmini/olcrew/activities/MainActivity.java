@@ -69,6 +69,11 @@ public class MainActivity extends AppCompatActivity {
         this.filter.setOnClickListener(onClickListener);
     }
 
+    public void setCleanFilterAction(View.OnClickListener onClickListener) {
+        this.cleanFilters.setOnClickListener(onClickListener);
+    }
+
+
     @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() > 1) {

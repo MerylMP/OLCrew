@@ -19,6 +19,12 @@ public interface ListOLMVPInterface {
         void showNoInfoMessage(boolean noInfoMessage);
 
         void loadFilteredList(List<OompaLoompa> olFiltered);
+
+        void cleanOLList();
+
+        void showCleanFiltersButton();
+
+        void showFilterButton();
     }
 
     interface Presenter {
@@ -36,6 +42,7 @@ public interface ListOLMVPInterface {
 
         List<String> getProfessionSelectionList();
 
+        void removeFilters();
     }
 
     interface Model {

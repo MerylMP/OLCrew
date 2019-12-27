@@ -15,6 +15,8 @@ public interface ListOLMVPInterface {
         void isLoadingInfo(boolean isLoadingInfo);
 
         void showError(int error);
+
+        void showNoInfoMessage (boolean noInfoMessage);
     }
 
     interface Presenter {

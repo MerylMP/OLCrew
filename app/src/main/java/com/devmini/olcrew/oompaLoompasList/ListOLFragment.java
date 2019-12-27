@@ -32,6 +32,7 @@ public class ListOLFragment extends Fragment implements ListOLMVPInterface.View 
     private OLAdapter olAdapter;
     private ListOLMVPInterface.Presenter presenter;
     private FrameLayout loadingLayout;
+    private FrameLayout noInfoMessage;
 
     private static final int PAGE_START = 1;
     private int currentPage = PAGE_START;
@@ -62,7 +63,9 @@ public class ListOLFragment extends Fragment implements ListOLMVPInterface.View 
 
         setToolbarMessage();
         ((MainActivity) getActivity()).showFilterButton();
+
         this.loadingLayout = view.findViewById(R.id.main_spinnerLoader);
+        this.noInfoMessage = view.findViewById(R.id.main_noInfoContainer);
 
         // RecyclerView
         this.recyclerView = view.findViewById(R.id.main_listOL);
@@ -126,6 +129,15 @@ public class ListOLFragment extends Fragment implements ListOLMVPInterface.View 
             this.loadingLayout.setVisibility(View.VISIBLE);
         } else {
             this.loadingLayout.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void showNoInfoMessage(boolean showNoInfo) {
+        if (showNoInfo) {
+            this.noInfoMessage.setVisibility(View.VISIBLE);
+        } else {
+            this.noInfoMessage.setVisibility(View.GONE);
         }
     }
 

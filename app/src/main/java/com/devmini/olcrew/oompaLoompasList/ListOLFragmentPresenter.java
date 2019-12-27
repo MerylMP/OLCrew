@@ -38,6 +38,7 @@ public class ListOLFragmentPresenter implements ListOLMVPInterface.Presenter {
         this.view.loadOlList(results);
         this.view.isLoadingInfo(false);
         this.view.showLoading(false);
+        this.view.showNoInfoMessage(false);
     }
 
     @Override
@@ -48,6 +49,7 @@ public class ListOLFragmentPresenter implements ListOLMVPInterface.Presenter {
     @Override
     public void onFailureResponse(int error) {
         this.view.showLoading(false);
+        this.view.showNoInfoMessage(true);
         this.view.showError(error);
     }
 }

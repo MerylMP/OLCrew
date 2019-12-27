@@ -10,6 +10,8 @@ public interface DetailOLMVPInterface {
         void showError(int error);
 
         void showLoading(boolean showLoading);
+
+        void showNoInfoMessage(boolean showNoInfo);
     }
 
     interface Presenter {

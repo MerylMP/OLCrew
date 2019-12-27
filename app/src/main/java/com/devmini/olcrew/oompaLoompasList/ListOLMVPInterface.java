@@ -16,6 +16,8 @@ public interface ListOLMVPInterface {
 
         void showError(int error);
 
+        void showNoInfoMessage (boolean noInfoMessage);
+
         void loadFilteredList(List<OompaLoompa> olFiltered);
     }
 

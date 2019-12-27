@@ -49,6 +49,8 @@ public class ListOLFragmentPresenter implements ListOLMVPInterface.Presenter {
         this.olResultsList.addAll(results);
         this.view.isLoadingInfo(false);
         this.view.showLoading(false);
+        this.view.showNoInfoMessage(false);
+
 
         if (isFilterActive) {
             applyFilters(this.genderFilter, this.professionsFilter);
@@ -58,7 +60,6 @@ public class ListOLFragmentPresenter implements ListOLMVPInterface.Presenter {
         }
     }
 
-
     @Override
     public void retrieveTotalPages(int totalPages) {
         this.totalPages = totalPages;
@@ -67,6 +68,7 @@ public class ListOLFragmentPresenter implements ListOLMVPInterface.Presenter {
     @Override
     public void onFailureResponse(int error) {
         this.view.showLoading(false);
+        this.view.showNoInfoMessage(true);
         this.view.showError(error);
     }
 

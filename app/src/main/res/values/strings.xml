@@ -13,6 +13,6 @@
     <string name = "error_unsuccessfulResponse">An error occurred while retrieving information</string>
     <string name = "error_failureResponse">Error with server connection</string>
     <string name = "directory">Oompa Loompas directory</string>
-
+    <string name = "noResults">Not Oompa Loompas found</string>
 
 </resources>

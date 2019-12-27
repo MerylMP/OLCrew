@@ -84,12 +84,12 @@ public class ListOLFragmentPresenter implements ListOLMVPInterface.Presenter {
 
 
     private void generateFilterLists(List<OompaLoompa> results) {
-        for(OompaLoompa oompaLoompa : results) {
-            if(!genderSelectionList.contains(oompaLoompa.getGender())){
+        for (OompaLoompa oompaLoompa : results) {
+            if (!genderSelectionList.contains(oompaLoompa.getGender())) {
                 genderSelectionList.add(oompaLoompa.getGender());
             }
 
-            if(!professionSelectionList.contains(oompaLoompa.getProfession())){
+            if (!professionSelectionList.contains(oompaLoompa.getProfession())) {
                 professionSelectionList.add(oompaLoompa.getProfession());
             }
         }
@@ -146,5 +146,15 @@ public class ListOLFragmentPresenter implements ListOLMVPInterface.Presenter {
         }
 
         return tempProfessionList;
+    }
+
+    @Override
+    public List<String> getGenderSelectionList() {
+        return this.genderSelectionList;
+    }
+
+    @Override
+    public List<String> getProfessionSelectionList() {
+        return this.professionSelectionList;
     }
 }
